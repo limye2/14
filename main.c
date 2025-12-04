@@ -7,21 +7,28 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+struct Book{
+    int number;
+    char title[10];
+};
 
 void main(int argc, const char * argv[]) {
-    char*pc = NULL; //문자형 포인트변수 선언 , 초기화: NULL
-    int i=0;
+    struct Book*p;
     
-    pc = (char*)malloc(100*sizeof(char)); //동적할당 malloc함수 쓰기, 기본단위 1bytex100
-    if(pc==NULL){
+    p=(struct Book*)malloc(2*sizeof(struct Book));
+    
+    if(p==NULL){
         printf("메모리 할당 오류\n");
-        exit(1);
+        return;
     }
+    p->number=1;
+    strcpy(p->title, "C Programming");
     
-    for(i=0;i<26;i++){
-        pc[i]='a'+i;
-    }
-    pc[i] = 0;
-    printf("%s\n",pc);
-    free(pc);
+    (p+1)->number=2;
+    strcpy((p+1)->title, "Electronics");
+    
+    free(p);
+    return;
 }
